@@ -2,8 +2,7 @@ package com.VagasBoot.Boot.Vagas.model;
 
 public enum TipoStatus {
 
-    ENVIADA,
-    NOVA,
-    ERRO
+    ENVIADO,
+    NAO_ENVIADO
 
 }
