@@ -24,14 +24,22 @@ public class Vaga {
     private String tituloVaga;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "senioridade",nullable = false, length = 20)
-    private String tipoVaga;
+    @Column(name = "status", nullable = false, length = 20)
+    private String status;
 
-    @Column(name = "descricao",nullable = false)
+    @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "stacks",nullable = false,length = 500)
-    private String tecnologias;
+    @Column(name = "link", nullable = false)
+    private String link;
 
+    @Column(name = "data_criacao", nullable = false)
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "localizacao", nullable = false)
+    private String Localizacao;
+
+    @Column(name = "empresa", nullable = false)
+    private String empresa;
 
 }
