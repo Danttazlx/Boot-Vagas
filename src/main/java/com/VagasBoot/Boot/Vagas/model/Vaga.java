@@ -36,7 +36,7 @@ public class Vaga {
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
 
-    @Column(name = "localizacao", nullable = false)
+    @Column(name = "localizacao_vaga", nullable = false)
     private String Localizacao;
 
     @Column(name = "empresa", nullable = false)
