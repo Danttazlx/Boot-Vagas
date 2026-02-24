@@ -13,7 +13,7 @@ public class ServiceVaga {
 
         public void processarVaga (VagaDTO dtoVaga){
 
-        if (dtoVaga.getLink() == null && dtoVaga.getLink().isBlank()){
+        if (dtoVaga.getLink() == null || dtoVaga.getLink().isBlank()){
               throw new IllegalArgumentException("Link vazio");
 
             }
