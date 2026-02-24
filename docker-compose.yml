@@ -5,7 +5,7 @@ services:
     image: postgres:16
     container_name: postgres
     environment:
-      POSTGRES_DB: botVagas do
+      POSTGRES_DB: botVagas
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
     ports:
