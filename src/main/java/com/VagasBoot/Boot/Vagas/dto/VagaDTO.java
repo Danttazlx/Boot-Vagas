@@ -11,11 +11,7 @@ public class VagaDTO {
 
     private String titulo;
 
-    private String senioridade;
-
     private String descricao;
-
-    private String tecnologias;
 
     private String empresa;
 
