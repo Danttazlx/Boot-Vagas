@@ -14,21 +14,6 @@ public class ServiceVaga {
         this.repositoryVaga = repositoryVaga;
     }
 
-    private static final List<String> FILTRO = List.of(
-            "estagio",
-            "estagio java",
-            "estagio ti",
-            "suporte n1",
-            "estagio desenvolvimento",
-            "suporte tecnico n1",
-            "suporte tecnico n2",
-            "estagio desenvolvimento de software java",
-            "suporte",
-            "n1",
-            "help desk",
-            "suporte tecnico",
-            "estagio desenvolvimento java");
-
     public void processarVaga(VagaDTO dtoVaga) {
 
 
@@ -45,9 +30,7 @@ public class ServiceVaga {
         repositoryVaga.save(vaga);
 
     }
-
     public Vaga converterDto(VagaDTO dto) {
-
 
         Vaga vaga = new Vaga();
 
@@ -60,8 +43,23 @@ public class ServiceVaga {
 
         String tituloVaga = vaga.getTituloVaga().toLowerCase().trim();
 
+        List<String> filtro = List.of(
+                "estagio",
+                "estagio java",
+                "estagio ti",
+                "suporte n1",
+                "estagio desenvolvimento",
+                "suporte tecnico n1",
+                "suporte tecnico n2",
+                "estagio desenvolvimento de software java",
+                "suporte",
+                "n1",
+                "help desk",
+                "suporte tecnico",
+                "estagio desenvolvimento java");
 
-        for (String lista : FILTRO) {
+
+        for (String lista : filtro) {
             if (tituloVaga.contains(lista)) {
                 vaga.setTituloVaga(tituloVaga);
                 break;
@@ -70,6 +68,4 @@ public class ServiceVaga {
         return vaga;
 
     }
-
-
 }
