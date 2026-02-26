@@ -3,16 +3,17 @@ spring:
     name: Boot-Vagas
 
   datasource:
-    url: jdbc:postgresql://localhost:5432:botVagas
-    password: admin
-    username:
+    url: jdbc:postgresql://localhost:5433/${POSTGRES_DB}
+    password: "${POSTGRES_PASSWORD}"
+    username: "${POSTGRES_USER}"
     driver: org.postgresql.Driver
 
   jpa:
    hibernate:
-      dll-auto: update
+      ddl-auto: none
    show-sql: true
    properties:
      hibernate:
        format_sql: true
-       dialect: org.postgresql.dialect.PostgreSQLDialect
+       dialect: org.hibernate.dialect.PostgreSQLDialect
+
