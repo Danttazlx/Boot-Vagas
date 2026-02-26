@@ -68,6 +68,4 @@ public class ServiceVaga {
         return vaga;
 
     }
-
-
 }
