@@ -1,6 +1,7 @@
 package com.VagasBoot.Boot.Vagas.service;
 
 import com.VagasBoot.Boot.Vagas.dto.VagaDTO;
+import com.VagasBoot.Boot.Vagas.exception.NotFoundRuntimeException;
 import com.VagasBoot.Boot.Vagas.model.Vaga;
 import com.VagasBoot.Boot.Vagas.repository.RepositoryVaga;
 
