@@ -18,7 +18,7 @@ public class ServiceVaga {
 
 
         if (dtoVaga.getLink() == null || dtoVaga.getLink().isBlank()) {
-            throw new IllegalArgumentException("Link vazio");
+            throw new NotFoundRuntimeException("Link vazio");
         }
 
         if (repositoryVaga.existsByLink(dtoVaga.getLink())) {
