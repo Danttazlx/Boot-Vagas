@@ -20,11 +20,11 @@
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Column(name = "titulo_vaga",nullable = false)
-        private String tituloVaga;
+        @Column(name = "tipo",nullable = false)
+        private String tipo;
 
         @Enumerated(EnumType.STRING)
-        @Column(name = "status", nullable = false, length = 20)
+        @Column(name = "status", length = 20)
         private TipoStatus status;
 
         @Column(name = "descricao", nullable = false)
@@ -33,13 +33,16 @@
         @Column(name = "link", nullable = false, unique = true)
         private String link;
 
-        @Column(name = "data_criacao", nullable = false)
-        private LocalDateTime dataCriacao;
+        @Column(name = "horario", nullable = false)
+        private LocalDateTime horario;
 
-        @Column(name = "localizacao_vaga", nullable = false)
+        @Column(name = "localizacao", nullable = false)
         private String localizacao;
 
-        @Column(name = "empresa", nullable = false)
-        private String empresa;
+        @Column(name = "salario", length = 70, nullable = false)
+        private String salario;
+
+        @Column(name = "area", length = 255, nullable = false)
+        private String area;
 
     }
