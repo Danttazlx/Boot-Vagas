@@ -3,27 +3,14 @@ package com.VagasBoot.Boot.Vagas.service;
 import com.VagasBoot.Boot.Vagas.dto.VagaDTO;
 import com.VagasBoot.Boot.Vagas.model.Vaga;
 import com.VagasBoot.Boot.Vagas.repository.RepositoryVaga;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ServiceVaga {
 
     private final RepositoryVaga repositoryVaga;
-
-    private static final List<String> filtro = List.of(
-            "estagio",
-            "estagio java",
-            "estagio ti",
-            "suporte n1",
-            "estagio desenvolvimento",
-            "suporte tecnico n1",
-            "suporte tecnico n2",
-            "estagio desenvolvimento de software java",
-            "suporte",
-            "n1",
-            "help desk",
-            "suporte tecnico",
-            "estagio desenvolvimento java");
 
     public ServiceVaga(RepositoryVaga repositoryVaga) {
         this.repositoryVaga = repositoryVaga;
@@ -32,11 +19,11 @@ public class ServiceVaga {
     public void processarVaga(VagaDTO dtoVaga) {
 
 
-        if (dtoVaga.getLink() == null || dtoVaga.getLink().isBlank()) {
+        if (dtoVaga.getLinkcompleto() == null || dtoVaga.getLinkcompleto().isBlank()) {
             throw new IllegalArgumentException("Link vazio");
         }
 
-        if (repositoryVaga.existsByLink(dtoVaga.getLink())) {
+        if (repositoryVaga.existsByLink(dtoVaga.getLinkcompleto())) {
             System.out.println("link existente no banco!");
             return;
         }
@@ -45,27 +32,47 @@ public class ServiceVaga {
         repositoryVaga.save(vaga);
 
     }
+
     public Vaga converterDto(VagaDTO dto) {
 
 
         Vaga vaga = new Vaga();
 
-        vaga.setTituloVaga(dto.getTitulo());
+        vaga.setTipo(dto.getTipo());
         vaga.setDescricao(dto.getDescricao());
-        vaga.setEmpresa(dto.getEmpresa());
         vaga.setLocalizacao(dto.getLocalizacao());
-        vaga.setDataCriacao(dto.getDataPublicacao());
-        vaga.setLink(dto.getLink());
+        vaga.setSalario(dto.getSalario());
+        vaga.setDescricao(dto.getDescricao());
 
-        String tituloVaga = vaga.getTituloVaga().toLowerCase().trim();
+        vaga.setLink(dto.getLinkcompleto());
+
+        String tituloVaga = vaga.getTipo().toLowerCase().trim();
+
+        List<String> filtro = List.of(
+
+            "estagio ti ",
+                "estagio java",
+                "estagio ti",
+                "suporte n1",
+                "estagio desenvolvimento",
+                "suporte tecnico n1",
+                "suporte tecnico n2",
+                "estagio desenvolvimento de software java",
+                "suporte",
+                "n1",
+                "helpdesk",
+                "suporte tecnico",
+                "estagio desenvolvimento java");
+
 
         for (String lista : filtro) {
             if (tituloVaga.contains(lista)) {
-                vaga.setTituloVaga(tituloVaga);
+                vaga.setTipo(tituloVaga);
                 break;
             }
         }
         return vaga;
 
     }
+
 }

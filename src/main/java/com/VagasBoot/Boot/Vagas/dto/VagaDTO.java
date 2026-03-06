@@ -9,15 +9,22 @@ import java.time.LocalDateTime;
 @Setter
 public class VagaDTO {
 
-    private String titulo;
-
     private String descricao;
 
-    private String empresa;
+    private String tipo;
+
+    private String area;
 
     private String localizacao;
 
-    private LocalDateTime dataPublicacao;
+    private String horario;
 
-    private String link;
+    private String salario;
+
+    private String href;
+
+    private String linkcompleto;
+
+    private LocalDateTime dataCriacao;
+
 }
