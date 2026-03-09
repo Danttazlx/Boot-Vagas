@@ -1,12 +1,15 @@
 
 
+
+
 CREATE TABLE vaga (
-    id          BIGSERIAL PRIMARY KEY,
-    titulo_vaga      VARCHAR(255) NOT NULL,
-    empresa     VARCHAR(255) NOT NULL,
-    localizacao_vaga VARCHAR(255),
-    descricao TEXT NOT NULL,
-    link        VARCHAR(500) NOT NULL UNIQUE,
-    status      VARCHAR(20)  NOT NULL DEFAULT 'NEW',
-    data_criacao TIMESTAMP   NOT NULL
+    id             BIGSERIAL PRIMARY KEY,
+    descricao      VARCHAR(500) NOT NULL,
+    tipo           VARCHAR(255) NOT NULL,
+    area           VARCHAR(255),
+    localizacao    VARCHAR(255),
+    salario        VARCHAR(70),
+    link           VARCHAR(500) NOT NULL UNIQUE,
+    status         VARCHAR(20)  DEFAULT 'NEW',
+    expediente     VARCHAR(40)
 );
