@@ -3,21 +3,24 @@ package com.VagasBoot.Boot.Vagas.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 public class VagaDTO {
 
-    private String titulo;
-
     private String descricao;
 
-    private String empresa;
+    private String tipo;
+
+    private String area;
 
     private String localizacao;
 
-    private LocalDateTime dataPublicacao;
+    private String salario;
 
-    private String link;
+    private String linkcompleto;
+
+    private String expediente;
+
+
+
 }

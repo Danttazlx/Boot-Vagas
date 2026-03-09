@@ -1,45 +1,47 @@
-    package com.VagasBoot.Boot.Vagas.model;
+package com.VagasBoot.Boot.Vagas.model;
 
 
-    import jakarta.persistence.*;
-    import lombok.Getter;
-    import lombok.NoArgsConstructor;
-    import lombok.Setter;
-
-    import java.time.LocalDateTime;
-
-    @Entity
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @Table(name = "vaga")
-    public class Vaga {
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "vaga")
+public class Vaga {
 
-        @Column(name = "titulo_vaga",nullable = false)
-        private String tituloVaga;
 
-        @Enumerated(EnumType.STRING)
-        @Column(name = "status", nullable = false, length = 20)
-        private TipoStatus status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @Column(name = "descricao", nullable = false)
-        private String descricao;
+    @Column(name = "tipo",nullable = false)
+    private String tipo;
 
-        @Column(name = "link", nullable = false, unique = true)
-        private String link;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20)
+    private TipoStatus status;
 
-        @Column(name = "data_criacao", nullable = false)
-        private LocalDateTime dataCriacao;
+    @Column(name = "descricao", nullable = false)
+    private String descricao;
 
-        @Column(name = "localizacao_vaga", nullable = false)
-        private String localizacao;
+    @Column(name = "link", nullable = false, unique = true)
+    private String link;
 
-        @Column(name = "empresa", nullable = false)
-        private String empresa;
+    @Column(name = "localizacao")
+    private String localizacao;
 
-    }
+    @Column(name = "expediente")
+    private String expediente;
+
+    @Column(name = "salario", length = 70)
+    private String salario;
+
+    @Column(name = "area", length = 255)
+    private String area;
+
+}

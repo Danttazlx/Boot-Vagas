@@ -2,14 +2,18 @@ package com.VagasBoot.Boot.Vagas.service;
 
 import com.VagasBoot.Boot.Vagas.dto.VagaDTO;
 import com.VagasBoot.Boot.Vagas.exception.NotFoundRuntimeException;
+import com.VagasBoot.Boot.Vagas.model.TipoStatus;
 import com.VagasBoot.Boot.Vagas.model.Vaga;
 import com.VagasBoot.Boot.Vagas.repository.RepositoryVaga;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ServiceVaga {
 
     private final RepositoryVaga repositoryVaga;
+    private static final String SEARCH = ".*\\b%s\\b.*";
 
     public ServiceVaga(RepositoryVaga repositoryVaga) {
         this.repositoryVaga = repositoryVaga;
@@ -18,58 +22,62 @@ public class ServiceVaga {
     public void processarVaga(VagaDTO dtoVaga) {
 
 
-        if (dtoVaga.getLink() == null || dtoVaga.getLink().isBlank()) {
+        if (dtoVaga.getLinkcompleto() == null || dtoVaga.getLinkcompleto().isBlank()) {
             throw new NotFoundRuntimeException("Link vazio");
         }
 
-        if (repositoryVaga.existsByLink(dtoVaga.getLink())) {
+        if (repositoryVaga.existsByLink(dtoVaga.getLinkcompleto())) {
             System.out.println("link existente no banco!");
             return;
         }
 
         Vaga vaga = converterDto(dtoVaga);
+
+        if (vaga == null ){
+            System.out.println("vaga descartada");
+            return ;
+        }
         repositoryVaga.save(vaga);
 
     }
+
     public Vaga converterDto(VagaDTO dto) {
 
+        String descricao = dto.getDescricao() != null ? dto.getDescricao().toLowerCase().trim() : "";
 
-        Vaga vaga = new Vaga();
+        List<String> filtro = List.of(
+                "estagio", "java", "suporte",
+                "spring boot", "helpdesk", "help desk",
+                "desenvolvimento", "java", "informatica",
+                "programador", "sistemas", "ti");
 
-        vaga.setTituloVaga(dto.getTitulo());
-        vaga.setDescricao(dto.getDescricao());
-        vaga.setEmpresa(dto.getEmpresa());
-        vaga.setLocalizacao(dto.getLocalizacao());
-        vaga.setDataCriacao(dto.getDataPublicacao());
-        vaga.setLink(dto.getLink());
-
-        String tituloVaga = vaga.getTituloVaga().toLowerCase().trim();
-
-         List<String> filtro = List.of(
-                "estagio",
-                "estagio java",
-                "estagio ti",
-                "suporte n1",
-                "estagio desenvolvimento",
-                "suporte tecnico n1",
-                "suporte tecnico n2",
-                "estagio desenvolvimento de software java",
-                "suporte",
-                "n1",
-                "help desk",
-                "suporte tecnico",
-                "estagio desenvolvimento java");
-
-
-
-
-        for (String lista : filtro) {
-            if (tituloVaga.contains(lista)) {
-                vaga.setTituloVaga(tituloVaga);
+        boolean passou = false;
+        for (String palavra : filtro) {
+            if (descricao.matches(String.format(SEARCH, palavra))) {
+                passou = true;
                 break;
             }
         }
-        return vaga;
 
+        if (!passou) return null; // descarta
+
+
+        if (!dto.getTipo().equalsIgnoreCase("Estagio") &&
+                !dto.getArea().equalsIgnoreCase("Informatica")) {
+            return null;
+        }
+
+        Vaga vaga = new Vaga();
+        vaga.setTipo(dto.getTipo());
+        vaga.setDescricao(dto.getDescricao());
+        vaga.setLocalizacao(dto.getLocalizacao());
+        vaga.setSalario(dto.getSalario());
+        vaga.setArea(dto.getArea());
+        vaga.setLink(dto.getLinkcompleto());
+        vaga.setStatus(TipoStatus.NEW);
+        vaga.setExpediente(dto.getExpediente());
+
+        return vaga;
     }
+
 }
