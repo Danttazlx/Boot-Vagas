@@ -33,9 +33,9 @@ public class ServiceVaga {
 
         Vaga vaga = converterDto(dtoVaga);
 
-        if (vaga == null ){
+        if (vaga == null) {
             System.out.println("vaga descartada");
-            return ;
+            return;
         }
         repositoryVaga.save(vaga);
 
@@ -59,11 +59,15 @@ public class ServiceVaga {
             }
         }
 
+
         if (!passou) return null; // descarta
 
+        List<String> areasValidas = List.of ("informatica", "ti", "tecnologia", "sistemas");
 
-        if (!dto.getTipo().equalsIgnoreCase("Estagio") &&
-                !dto.getArea().equalsIgnoreCase("Informatica")) {
+
+        if (dto.getTipo() == null || dto.getArea() == null ||
+                !dto.getTipo().equalsIgnoreCase("Estagio") ||
+                areasValidas.stream().noneMatch(a -> a.equalsIgnoreCase(dto.getArea()))) {
             return null;
         }
 
