@@ -5,11 +5,13 @@ import com.VagasBoot.Boot.Vagas.exception.NotFoundRuntimeException;
 import com.VagasBoot.Boot.Vagas.model.TipoStatus;
 import com.VagasBoot.Boot.Vagas.model.Vaga;
 import com.VagasBoot.Boot.Vagas.repository.RepositoryVaga;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ServiceVaga {
 
     private final RepositoryVaga repositoryVaga;
@@ -23,18 +25,18 @@ public class ServiceVaga {
 
 
         if (dtoVaga.getLinkcompleto() == null || dtoVaga.getLinkcompleto().isBlank()) {
-            throw new NotFoundRuntimeException("Link vazio");
+            throw new NotFoundRuntimeException("link null");
         }
 
         if (repositoryVaga.existsByLink(dtoVaga.getLinkcompleto())) {
-            System.out.println("link existente no banco!");
+            log.info("Vaga ignorada - link existente no banco, link: {} ", dtoVaga.getLinkcompleto());
             return;
         }
 
         Vaga vaga = converterDto(dtoVaga);
 
         if (vaga == null) {
-            System.out.println("vaga descartada");
+            log.warn("Vaga descartada — não passou nos filtros | link: {}", dtoVaga.getLinkcompleto());
             return;
         }
         repositoryVaga.save(vaga);
@@ -60,14 +62,20 @@ public class ServiceVaga {
         }
 
 
-        if (!passou) return null; // descarta
+        if (!passou){
+            log.warn("Vaga descartada - Descricao nao passou pelo filto de palavras-chaves link: {} ", dto.getLinkcompleto());
+            return null;}  // descarta
 
-        List<String> areasValidas = List.of ("informatica", "ti", "tecnologia", "sistemas");
+
+        List<String> areasValidas = List.of("informatica", "ti", "tecnologia", "sistemas");
 
 
         if (dto.getTipo() == null || dto.getArea() == null ||
                 !dto.getTipo().equalsIgnoreCase("Estagio") ||
                 areasValidas.stream().noneMatch(a -> a.equalsIgnoreCase(dto.getArea()))) {
+            log.warn("Vaga Descartada - é Preciso ser Estagio e as Areas nao atende ao criterio necessario.| linkTipo: {} | linkArea: {} "
+                    ,dto.getTipo(),dto.getArea());
+
             return null;
         }
 
