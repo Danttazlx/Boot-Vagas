@@ -9,7 +9,9 @@ public class VagaDTO {
     private String name;
     private String description;
     private String type;
+    private String city;
     private String state;
+    private String jobUrl;
     private String workplaceType;
 
 }
